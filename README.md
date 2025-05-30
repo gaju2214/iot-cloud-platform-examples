@@ -21,5 +21,10 @@ This repository provides code samples to help you connect, monitor, and control 
 | Arduino | Arduino IDE code |
 | Rpi | Python scripts API |
 
+
+ **Clone this repo:**
+   ```bash
+   https://github.com/gaju2214/iot-cloud-platform-examples.git
+
 ## 🔗 License
 This project is licensed under the MIT License. See the `LICENSE` file for more info.
