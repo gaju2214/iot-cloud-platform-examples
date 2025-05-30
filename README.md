@@ -17,7 +17,7 @@ This repository provides code samples to help you connect, monitor, and control 
 
 | Folder | Description |
 |--------|-------------|
-| ESP32  | MicroPython examples |
+| ESP8266  | MicroPython examples |
 | Arduino | Arduino IDE code |
 | Rpi | Python scripts API |
 
