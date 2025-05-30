@@ -31,5 +31,5 @@ This repository contains example code and instructions for using the **Raspberry
 
 2. **Clone this repo:**
    ```bash
-   git clone https://github.com/your-username/your-repo-name.git
+   https://github.com/gaju2214/iot-cloud-platform-examples.git
 
