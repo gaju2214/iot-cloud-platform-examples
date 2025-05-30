@@ -1,13 +1,13 @@
 #include <ESP8266WiFi.h>
 #include <WiFiClientSecure.h>
 
-const char* ssid = "Electrosoft";
-const char* password = "Elec1234";
+const char* ssid = "Your-ssid";
+const char* password = "Your-passwd";
 
 const char* host = "getyourprojectdone.in";
 const int httpsPort = 443;
 
-const char* api_key = "7812AZNNYFFO";
+const char* api_key = "Your-api-key";
 
 WiFiClientSecure client;
 
