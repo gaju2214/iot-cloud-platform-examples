@@ -1,8 +1,8 @@
 # IoT Cloud Platform Code Examples
 
 This repository provides code samples to help you connect, monitor, and control IoT devices using the [Get Your Projects Done IoT Cloud Platform](https://getyourprojectdone.in/iot_platform/).
-
 ## 💡 What’s Included
+- This is a fully free platform you   can create unlimited channel        devices to monitor and many more...
 - ESP32 Python examples
 - Arduino IoT monitoring code
 - HTTP API scripts for direct data transfer
