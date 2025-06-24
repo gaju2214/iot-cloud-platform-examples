@@ -28,3 +28,6 @@ This repository provides code samples to help you connect, monitor, and control 
 
 ## 🔗 License
 This project is licensed under the MIT License. See the `LICENSE` file for more info.
+
+
+https://github.com/gaju2214/iot-cloud-platform-examples/blob/main/Screenshot%20from%202025-06-24%2016-36-37.png
