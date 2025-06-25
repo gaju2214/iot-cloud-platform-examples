@@ -20,6 +20,7 @@ This repository provides code samples to help you connect, monitor, and control 
 | ESP8266  | MicroPython examples |
 | Arduino | Arduino IDE code |
 | Rpi | Python scripts API |
+Rpi Pico w
 
 
  **Clone this repo:**
