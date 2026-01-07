@@ -5,7 +5,7 @@ SoftwareSerial esp(2, 3); // RX, TX
 
 const char* ssid = "YOUR-SSID";
 const char* password = "YOUR-PASSWD";
-const char* host = "getyourprojectdone.in";
+const char* host = "iot.getyourprojectdone.in";
 const int httpPort = 80;
 const char* api_key = "YOUR-API-KEY";
 
@@ -59,7 +59,7 @@ void loop() {
   json += "]}";
 
   String postRequest =
-    "POST /iot_platform/api/insert_data.php HTTP/1.1\r\n"
+    "POST /api/insert_data.php HTTP/1.1\r\n"
     "Host: getyourprojectdone.in\r\n"
     "Content-Type: application/json\r\n"
     "Content-Length: " + String(json.length()) + "\r\n"
