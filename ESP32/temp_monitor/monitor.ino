@@ -4,7 +4,7 @@
 const char* ssid = "Your-ssid";
 const char* password = "Your-passwd";
 
-const char* host = "getyourprojectdone.in";
+const char* host = "iot.getyourprojectdone.in";
 const int httpsPort = 443;
 
 const char* api_key = "Your-api-key";
@@ -71,7 +71,7 @@ void loop() {
   }
 
   String request =
-    String("POST ") + "/iot_platform/api/insert_data.php HTTP/1.1\r\n" +
+    String("POST ") + "/api/insert_data.php HTTP/1.1\r\n" +
     "Host: " + host + "\r\n" +
     "Content-Type: application/json\r\n" +
     "Content-Length: " + json.length() + "\r\n" +
