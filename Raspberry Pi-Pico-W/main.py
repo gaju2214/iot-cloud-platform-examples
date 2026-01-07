@@ -6,7 +6,7 @@ import json
 WIFI_SSID = "Your-ssid"
 WIFI_PASSWORD = "Your-pass"
 API_KEY = "Your-api-key"
-API_URL = "https://getyourprojectdone.in/iot_platform/api/insert_data.php"
+API_URL = "https://iot.getyourprojectdone.in/api/insert_data.php"
 
 def connect_to_wifi(ssid, password):
     wlan = network.WLAN(network.STA_IF)
