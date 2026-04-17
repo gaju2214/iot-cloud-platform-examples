@@ -12,9 +12,9 @@
 #include <ArduinoJson.h>
 
 // ── STEP 0 — Credentials & server ────────────────────────────────
-const char* WIFI_SSID     = "Electrosoft";
-const char* WIFI_PASSWORD = "Elec1234";
-const char* API_KEY       = "5991EEAGKPGF";
+const char* WIFI_SSID     = "ssid";
+const char* WIFI_PASSWORD = "password";
+const char* API_KEY       = "your-api-key";
 
 const char* SERVER = "https://iot.getyourprojectdone.in";
 
