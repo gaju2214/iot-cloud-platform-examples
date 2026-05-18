@@ -31,8 +31,10 @@ Connect, monitor, and control your IoT devices using the **[Get Your Projects Do
 
 | File | Description |
 |------|-------------|
-| `pico.py` | Pico W — DHT11 temperature & humidity → platform |
-| `pico_main.py` | Pico W — Built-in chip temperature sensor → platform |
+| `esp8266_led_control.ino` | ESP8266 — Control LED from dashboard in real time |
+| `esp8266_control.ino` | ESP8266 — Multi-device remote control (relay, fan, servo…) |
+| `arduino_control.ino` | Arduino — Multi-device remote control via HTTP |
+| `arduino_monitor.ino` | Arduino — Multi-sensor data push to platform |
 | `raspberry_monitor.py` | Pico W — Multi-sensor monitor (plug-in architecture) |
 | `raspberry_control.py` | Pico W — Multi-device remote control (relay, fan, servo…) |
 
