@@ -1,7 +1,7 @@
 """
 ════════════════════════════════════════════════════════════════
  Raspberry Pi Pico W — Multi-Device Control  (MicroPython)
-  •  Add unlimited control devices in 2 steps  • 
+ Production-ready  •  Add unlimited control devices in 2 steps
 ════════════════════════════════════════════════════════════════
 
  HOW IT WORKS:
@@ -21,7 +21,8 @@
 """
 
 import network
-import urequests
+import usocket
+import ssl
 import ujson
 import utime
 from machine import Pin, PWM
@@ -32,7 +33,7 @@ WIFI_PASSWORD = "Your-Password"
 API_KEY       = "Your-API-Key"
 
 SERVER = "https://iot.getyourprojectdone.in"
-
+# Local LAMPP: SERVER = "http://192.168.x.x/iot_platform"
 
 POLL_INTERVAL = 5   # seconds
 # ─────────────────────────────────────────────────────────────────
@@ -148,18 +149,56 @@ def connect_wifi():
 
 
 def http_post(url, body):
+    # Parse host and path from URL
+    proto, _, host, path = url.split("/", 3)
+    path = "/" + path
+    port = 443 if proto == "https:" else 80
+
+    s = None
     try:
-        resp = urequests.post(
-            url,
-            data=body,
-            headers={"Content-Type": "application/json"}
-        )
-        text = resp.text
-        resp.close()
-        return text
-    except OSError as e:
+        addr = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)[0][-1]
+        s = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)
+        s.settimeout(30)
+        s.connect(addr)
+
+        if port == 443:
+            ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+            ctx.verify_mode = ssl.CERT_NONE
+            ctx.check_hostname = False
+            s = ctx.wrap_socket(s, server_hostname=host)
+
+        request = (
+            "POST {} HTTP/1.1\r\n"
+            "Host: {}\r\n"
+            "Content-Type: application/json\r\n"
+            "Content-Length: {}\r\n"
+            "Connection: close\r\n"
+            "\r\n"
+            "{}"
+        ).format(path, host, len(body), body)
+
+        s.write(request.encode("utf-8"))
+
+        response = b""
+        while True:
+            chunk = s.read(512)
+            if not chunk:
+                break
+            response += chunk
+
+        if b"\r\n\r\n" in response:
+            return response.split(b"\r\n\r\n", 1)[1].decode("utf-8")
+        return response.decode("utf-8")
+
+    except Exception as e:
         print(f"[HTTP] Error: {e}")
         return ""
+
+    finally:
+        try:
+            s.close()
+        except:
+            pass
 
 
 def poll_device(device_name, handler):
