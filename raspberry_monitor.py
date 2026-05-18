@@ -1,7 +1,7 @@
 """
 ════════════════════════════════════════════════════════════════
  Raspberry Pi Pico W — Multi-Sensor Monitor  (MicroPython)
- •  Add unlimited sensors in 2 steps  •
+ Production-ready  •  Add unlimited sensors in 2 steps
 ════════════════════════════════════════════════════════════════
 
  HOW TO ADD A NEW SENSOR:
@@ -17,7 +17,8 @@
 """
 
 import network
-import urequests
+import usocket
+import ssl
 import ujson
 import utime
 
@@ -29,6 +30,8 @@ API_KEY       = "Your-API-Key"   # from dashboard → API Key pill
 # Production server (HTTPS)
 SERVER = "https://iot.getyourprojectdone.in"
 
+# Local LAMPP testing — comment out SERVER above, use this:
+# SERVER = "http://192.168.x.x/iot_platform"
 
 SEND_INTERVAL = 10   # seconds between sends
 # ─────────────────────────────────────────────────────────────────
@@ -148,19 +151,58 @@ def send_all_sensors():
 
     print(f"[HTTP] POST → {url}")
 
+    proto, _, host, path = url.split("/", 3)
+    path = "/" + path
+    port = 443 if proto == "https:" else 80
+
+    s = None
     try:
-        resp = urequests.post(
-            url,
-            data=body,
-            headers={"Content-Type": "application/json"}
-        )
-        result = resp.text
-        resp.close()
+        addr = usocket.getaddrinfo(host, port, 0, usocket.SOCK_STREAM)[0][-1]
+        s = usocket.socket(usocket.AF_INET, usocket.SOCK_STREAM)
+        s.settimeout(30)
+        s.connect(addr)
+
+        if port == 443:
+            ctx = ssl.SSLContext(ssl.PROTOCOL_TLS_CLIENT)
+            ctx.verify_mode = ssl.CERT_NONE
+            ctx.check_hostname = False
+            s = ctx.wrap_socket(s, server_hostname=host)
+
+        request = (
+            "POST {} HTTP/1.1\r\n"
+            "Host: {}\r\n"
+            "Content-Type: application/json\r\n"
+            "Content-Length: {}\r\n"
+            "Connection: close\r\n"
+            "\r\n"
+            "{}"
+        ).format(path, host, len(body), body)
+
+        s.write(request.encode("utf-8"))
+
+        response = b""
+        while True:
+            chunk = s.read(512)
+            if not chunk:
+                break
+            response += chunk
+
+        if b"\r\n\r\n" in response:
+            result = response.split(b"\r\n\r\n", 1)[1].decode("utf-8")
+        else:
+            result = response.decode("utf-8")
+
         print(f"[Server] {result}")
 
-    except OSError as e:
+    except Exception as e:
         print(f"[HTTP] ERROR: {e}")
         print("       Check SERVER and network connection")
+
+    finally:
+        try:
+            s.close()
+        except:
+            pass
 
 
 def main():
