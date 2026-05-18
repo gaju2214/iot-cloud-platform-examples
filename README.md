@@ -2,7 +2,7 @@
 
 Connect, monitor, and control your IoT devices using the **[Get Your Projects Done IoT Cloud Platform](https://iot.getyourprojectdone.in)** — a fully free platform where you can create unlimited channels, add unlimited devices, monitor live sensor data, and control hardware remotely.
 
-![Platform Screenshot](https://github.com/gaju2214/iot-cloud-platform-examples/blob/main/Screenshot%20from%202025-06-24%2016-36-37.png)
+![Platform Screenshot](https://github.com/gaju2214/iot-cloud-platform-examples/blob/main/platform.png)
 
 ---
 
